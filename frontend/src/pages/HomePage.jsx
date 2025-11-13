@@ -68,7 +68,9 @@ const fakeProducts = [
 function HomePage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // We won't have errors, but good to keep
+  
+  // --- FIX 1: 'setError' was unused, so we remove the state setter ---
+  const [error] = useState(null); // We keep the variable just in case
 
   // --- NEW STATE FOR SEARCH ---
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,8 +85,8 @@ function HomePage() {
       // --- CLIENT-SIDE SEARCH LOGIC ---
       // We filter our fake data based on the search term
       const filteredProducts = fakeProducts.filter(p => 
-        p.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.genre.toLowerCase().includes(searchTerm.toLowerCase())
+        (p.author && p.author.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (p.genre && p.genre.toLowerCase().includes(searchTerm.toLowerCase()))
       );
       
       setProducts(filteredProducts);
@@ -96,13 +98,8 @@ function HomePage() {
     
   }, [searchTerm]); // Re-run this effect when 'searchTerm' changes
 
-  // --- NEW SEARCH HANDLER ---
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    // We don't need 'query' anymore, we just re-run the effect
-    // We'll just read 'searchTerm' directly inside the effect
-    // This is a dummy function now, but we'll use the one in the input
-  };
+  // --- FIX 2: 'handleSearchSubmit' was unused, so we remove it ---
+  // (The form now uses an inline preventDefault)
   
   // --- We'll use a placeholder for images ---
   const getImageUrl = (imagePath) => {
@@ -121,7 +118,7 @@ function HomePage() {
           type="text"
           placeholder="Search by Author or Genre..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.g.target.value)}
           style={{ flex: 1, padding: '0.7rem' }}
         />
         {/* We don't need the button, it searches as you type */}
@@ -130,7 +127,7 @@ function HomePage() {
 
 
       {loading && <p>Loading products...</p>}
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       
       {!loading && !error && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
