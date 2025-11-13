@@ -11,6 +11,12 @@
   # Netlify will find 'backend/index.js' and use the 'handler' we exported
   functions = "backend"
 
+# This increases the time for our backend function
+[functions]
+  [functions."index"] # 'index' is the name of your index.js file
+    timeout = 25 # Increase the timeout to 25 seconds
+
+    
 # This rule proxies API requests to our function
 [[redirects]]
   from = "/api/*"
