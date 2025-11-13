@@ -4,7 +4,7 @@
     import path from 'path';
     import serverless from 'serverless-http'; // <-- Import this
     import connectDB from './db.js';
-    import path, { dirname } from 'path';
+    import { dirname, join } from 'path';
     import authRoutes from './routes/authRoutes.js';
     import productRoutes from './routes/productRoutes.js';
 
@@ -23,9 +23,9 @@
     // --- Serve Static Files (Our 'uploads' folder) ---
     // This is crucial for React to display images/previews if we had them
     // For downloads, we use the protected route, but this makes the folder "web-accessible"
-    app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+    app.use('/uploads', express.static(join(__dirname, '/uploads')));
 
     // // --- Start Server ---
     // const PORT = process.env.PORT || 5000;
     // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    export const handler = serverless(app);    
+    export const handler = serverless(app);
