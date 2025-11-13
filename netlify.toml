@@ -1,0 +1,19 @@
+# File: netlify.toml (in your project root)
+
+[build]
+  # 1. Go into the 'frontend' folder, build it, and come back
+  command = "cd frontend && npm install && npm run build"
+  
+  # 2. Tell Netlify where the finished frontend site is
+  publish = "frontend/build"
+  
+  # 3. Tell Netlify where our backend function is
+  # Netlify will find 'backend/index.js' and use the 'handler' we exported
+  functions = "backend"
+
+# This rule proxies API requests to our function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/index/:splat" # 'index' is the name of our 'index.js' file
+  status = 200
+  
