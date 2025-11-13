@@ -5,8 +5,8 @@ import { join } from 'path'; // We ONLY import 'join'
 import serverless from 'serverless-http';
 import { connectDB } from './db.js'; // Use our named import
 
-import authRoutes from './routes/authRoutes.js';
-import productRoutes from './routes/productRoutes.js';
+import { router as authRoutes } from './routes/authRoutes.js';
+import { router as productRoutes } from './routes/productRoutes.js';
 
 // --- Config ---
 dotenv.config();
