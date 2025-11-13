@@ -196,4 +196,4 @@ router.post('/:id/rate', protect, async (req, res) => {
 });
 
 
-export default router;
+export { router };
