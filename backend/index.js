@@ -4,7 +4,8 @@ import cors from 'cors';
 import path from 'path';
 import serverless from 'serverless-http'; // <-- Import this
 import connectDB from './db.js';
-
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 
@@ -19,10 +20,11 @@ app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 // --- Serve Static Files (Our 'uploads' folder) ---
 // This is crucial for React to display images/previews if we had them
 // For downloads, we use the protected route, but this makes the folder "web-accessible"
-const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // // --- Start Server ---
