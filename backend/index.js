@@ -4,7 +4,7 @@
     import path from 'path';
     import serverless from 'serverless-http'; // <-- Import this
     import connectDB from './db.js';
-    import { dirname, join } from 'path';
+    import { join } from 'path';
     import authRoutes from './routes/authRoutes.js';
     import productRoutes from './routes/productRoutes.js';
 
