@@ -3,11 +3,16 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    // Hardcode your URL here (replace <YOUR_MONGO_URI>)
+    const uri = "mongodb+srv://pranaydubey272:chatshatpjn@chatshat.bsgimwr.mongodb.net/?retryWrites=true&w=majority&appName=ChatShat";
+
+    const conn = await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+    });
+
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
+    console.error("MongoDB connection error:", error.message);
   }
 };
 
